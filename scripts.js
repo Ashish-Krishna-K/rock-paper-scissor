@@ -8,9 +8,9 @@ const reset = document.getElementById('again');
 const tie = "It's a tie! Computer chose ";
 const win = "You win! Computer chose ";
 const lose = "You lose! Computer chose ";
-const playerWins = "You win!!! You have saved Humanity!!!";
-const computerWins = "You Lose! It's over! It's all over!!!"
-const draw = "It's a draw! Humanity lives to fight another day."
+const playerWins = "Congratulations!!! You win!!!";
+const computerWins = "Game Over! You Lose!"
+const draw = "It's a draw!! Try again!!"
 
 let playerScore = 0;
 let computerScore = 0;
@@ -42,7 +42,7 @@ reset.addEventListener('click', function(){
 
 
 function getComputerChoice() {
-    const choices = ['rock', 'paper', 'scissor'];
+    const choices = ['rock', 'paper', 'scissors'];
     let computerChoice = choices[Math.floor(Math.random()*choices.length)];
     return computerChoice
 }
@@ -53,15 +53,15 @@ function playRound (playerSelection, computerSelection) {
         result = tie;
     } else if (playerSelection === 'rock' && computerSelection === 'paper') {
         result = lose;
-    } else if (playerSelection === 'rock' && computerSelection === 'scissor') {
+    } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
         result = win;
     } else if (playerSelection === 'paper' && computerSelection === 'rock') {
         result = win;
-    } else if (playerSelection === 'paper' && computerSelection === 'scissor') {
+    } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
         result = lose;
-    } else if (playerSelection === 'scissor' && computerSelection === 'rock') {
+    } else if (playerSelection === 'scissors' && computerSelection === 'rock') {
         result = lose;
-    } else if (playerSelection === 'scissor' && computerSelection === 'paper') {
+    } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
         result = win;
     }
 
@@ -75,8 +75,8 @@ function keepScores (roundResult) {
         computerScore = ++computerScore
     };
 
-    playerScoreLine.innerText = playerScore;
-    computerScoreLine.innerText = computerScore;
+    playerScoreLine.innerText = "Player: " + playerScore;
+    computerScoreLine.innerText = "Computer: " + computerScore;
 };
 
 function declareWinner (playerScore, computerScore){

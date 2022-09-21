@@ -3,3 +3,6 @@ This is an in-browser version of Rock paper scissor game built using JavaScript 
 
 The scope of this project is limited only playing rock-paper-scissor in the DevTools console. As such the body of the webpage will remain blank.
 This will be updated to have an actual User Interface in the future when we revisit the project further down the module.
+
+The project is updated to have an actual user Interface rather than playing the game through the console.
+Some basic styling is also included to (hopefully) beautify the project.

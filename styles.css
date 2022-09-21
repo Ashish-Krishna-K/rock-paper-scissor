@@ -1,33 +1,120 @@
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    gap: 24px;
     color: #99ffcc;
     font-weight: 900;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+html {
+    background: url('images/background.avif');
+}
+
+#header {
+    font-size: 50px;
+    font-weight: bold;
+    padding: 36px;
+}
+
+#hero {
+    padding: 36px;
+}
+
+p {
+    margin: 0px;
+    padding: 24px;
+    font-size: 25px;
+}
+
+#body {
+    padding: 36px;
+}
+
+.options {
+    padding: 36px;
+}
+
+.options button {
+    width: 300px;
+    height: 200px;
+    padding: 50px;
+    background-color: #99ffcc;
+    font-size: 18px;
+    font-weight: 1000;
+    color: blueviolet;
+}
+
+#results {
+    font-size: 18px;
+    padding: 36px;
+}
+
+#scores {
+    padding: 36px;
+}
+
+#winner {
+    font-size: 25px;
+    padding: 36px;
+}
+
+#again {
+    width: 400px;
+    height: 200px;
+    margin: 50px;
+    padding: 50px;
+    background-color: #99ffcc;
+    font-size: 18px;
+    font-weight: 1000;
+    color: blueviolet;
+}
+
+
+
+
+/* Below this line is for layout only for all formatting update above this. */
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 #hero {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    gap: 12px;
+    width: 100%;
 }
 
-html {
-    background: linear-gradient(
-        rgba(0, 0, 0, 0.5),
-        rgba(0, 0, 0, 0.5)),
-         url("images/background.webp");
-    background-size: cover;
-    background-color: black;
-    height: 100%;
+#body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 12px;
+    width: 100%;
 }
 
-body, html {
-    height: 100%;
+.options {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 
-h1 {
-    font-size: 100px;
+#scores {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 20%;
 }
