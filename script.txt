@@ -1,0 +1,95 @@
+const choices = ['rock', 'paper', 'scissor']
+
+// function to make the computer randomly pick rock paper or scissor.
+function getComputerChoice() {
+    let computerChoice = choices[Math.floor(Math.random()*choices.length)];
+    return computerChoice
+}
+
+// just declaring some global variables to help in displaying results.
+const tie = "It's a tie! Computer chose "
+const win = "You win! Computer chose "
+const lose = "You lose! Computer chose "
+
+// declaring some variables to keep track of the score.
+let playerScore = 0;
+let computerScore = 0;
+
+// this will select all buttons in the document
+const body = document.getElementById('body');
+const buttons = body.querySelectorAll('button');
+
+// this is assigning and event listener for each button in the documnet
+buttons.forEach(button => button.addEventListener('click', function playGame(){
+    const playerSelection = this.id; // the this keyword is referring to the button that was clicked
+    console.log(playerSelection);
+    const computerSelection = getComputerChoice();
+    let result;
+
+    // the playRound function is declared further below, assigning the return value of the function to the result variable.
+    result = playRound(playerSelection, computerSelection);
+    
+    
+    if (result === win) {
+        playerScore++;
+    } else if (result === lose) {
+        computerScore++;
+    }
+
+
+
+    const resultLine = document.getElementById('results');
+    resultLine.innerText = result + computerSelection;
+
+    const playerScoreLine = document.querySelector('.player-score');
+    const computerScoreLine = document.querySelector('.computer-score');
+
+    playerScoreLine.innerText = playerScore;
+    computerScoreLine.innerText = computerScore;
+
+    let final = document.createElement('div');
+
+    if (playerScore === 5 && computerScore < 5){
+        final.innerText = "Congratulations!!! You Win!!!"
+        body.appendChild(final);
+        // startNewgame();
+    } else if (computerScore === 5 && playerScore < 5){
+        final.innerText = "Game Over! You Lose!"
+        body.appendChild(final);
+        // startNewgame();
+    }
+ }));
+
+ function startNewgame(){
+    window.location.reload();
+ }
+const reset = document.getElementById('again');
+reset.addEventListener('click', function(){
+    window.location.reload();
+})
+
+
+
+
+// the function that was called by the game function
+function playRound (playerSelection, computerSelection) {
+
+    if (playerSelection === computerSelection) {
+        result = tie;
+    } else if (playerSelection === 'rock' && computerSelection === 'paper') {
+        result = lose;
+    } else if (playerSelection === 'rock' && computerSelection === 'scissor') {
+        result = win;
+    } else if (playerSelection === 'paper' && computerSelection === 'rock') {
+        result = win;
+    } else if (playerSelection === 'paper' && computerSelection === 'scissor') {
+        result = lose;
+    } else if (playerSelection === 'scissor' && computerSelection === 'rock') {
+        result = lose;
+    } else if (playerSelection === 'scissor' && computerSelection === 'paper') {
+        result = win;
+    }
+
+    return result;
+}
+

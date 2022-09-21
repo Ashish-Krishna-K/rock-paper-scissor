@@ -1,73 +1,92 @@
-const choices = ['rock', 'paper', 'scissor']
+const body = document.querySelector('#body');
+const results = document.querySelector('#results');
+const playerScoreLine = document.querySelector('.player-score');
+const computerScoreLine = document.querySelector('.computer-score');
+const winnerLine = document.querySelector('#winner');
+const reset = document.getElementById('again');
 
-// function to make the computer randomly pick rock paper or scissor.
+const tie = "It's a tie! Computer chose ";
+const win = "You win! Computer chose ";
+const lose = "You lose! Computer chose ";
+const playerWins = "You win!!! You have saved Humanity!!!";
+const computerWins = "You Lose! It's over! It's all over!!!"
+const draw = "It's a draw! Humanity lives to fight another day."
+
+let playerScore = 0;
+let computerScore = 0;
+
+
+const buttons = body.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('click', function playGame(){
+    const playerSelection = this.innerText.toLowerCase();
+    const computerSelection = getComputerChoice();
+
+    let roundResult = playRound(playerSelection, computerSelection);
+
+    results.innerText = roundResult + computerSelection;
+
+    keepScores(roundResult);
+    
+    declareWinner(playerScore, computerScore);
+    
+
+    if (winnerLine.innerText !== "") {
+        buttons.forEach(button => button.disabled = true);
+    };
+
+}));
+
+reset.addEventListener('click', function(){
+    window.location.reload();
+});
+
+
 function getComputerChoice() {
+    const choices = ['rock', 'paper', 'scissor'];
     let computerChoice = choices[Math.floor(Math.random()*choices.length)];
     return computerChoice
 }
 
-// just declaring some global variables to help in displaying results.
-const tie = "It's a tie! Computer chose "
-const win = "You win! Computer chose "
-const lose = "You lose! Computer chose "
-
-// calls the game function.
-game();
-
-// actually declared the game function.
-function game() {
-    // declaring some variables to keep track of the score.
-    let playerScore = 0;
-    let computerScore = 0;
-    // utilizing for loop to make the game play 5 rounds.
-    for (let i = 0; i < 5; i++){
-
-        if (i <= 5) {
-
-            const playerInput = prompt('make your choice');
-            const playerSelection = playerInput.toLowerCase();   
-            
-            const computerSelection = getComputerChoice();
-            // the playRound function is declared further below, assigning the return value of the function to the result variable.
-            let result = playRound (playerSelection, computerSelection);
-            
-            if (result === win) {
-                playerScore++;
-            } else if (result === lose) {
-                computerScore++;
-            }
-            // below will display the result of each round the score tab so far.
-            console.log (result + computerSelection);
-            console.log (playerScore);
-            console.log (computerScore);
-        }
-    }
-    // gives a declaration of the result.
-    if (playerScore > computerScore) {
-        console.log('CONGRATULATIONS!!! YOU WON');
-    } else if (playerScore === computerScore) {
-        console.log("It's a Draw!");
-    } else {
-        console.log('Too bad! You lost!!!')
-    }
-}
-// the function that was called by the game function
 function playRound (playerSelection, computerSelection) {
 
     if (playerSelection === computerSelection) {
-        return tie; 
+        result = tie;
     } else if (playerSelection === 'rock' && computerSelection === 'paper') {
-        return lose;
+        result = lose;
     } else if (playerSelection === 'rock' && computerSelection === 'scissor') {
-        return win;
+        result = win;
     } else if (playerSelection === 'paper' && computerSelection === 'rock') {
-        return win;
+        result = win;
     } else if (playerSelection === 'paper' && computerSelection === 'scissor') {
-        return lose;
+        result = lose;
     } else if (playerSelection === 'scissor' && computerSelection === 'rock') {
-        return lose;
+        result = lose;
     } else if (playerSelection === 'scissor' && computerSelection === 'paper') {
-        return win;
+        result = win;
     }
-}
+
+    return result;
+};
+
+function keepScores (roundResult) {
+    if (roundResult === win) {
+        playerScore = ++playerScore
+    } else if (roundResult === lose) {
+        computerScore = ++computerScore
+    };
+
+    playerScoreLine.innerText = playerScore;
+    computerScoreLine.innerText = computerScore;
+};
+
+function declareWinner (playerScore, computerScore){
+
+    if (playerScore === 5 && computerScore < 5){
+        winnerLine.innerText = playerWins;
+    } else if (computerScore === 5 && playerScore < 5) {
+        winnerLine.innerText = computerWins;
+    } else if (playerScore === 5 && computerScore === 5) {
+        winnerLine.innerText = draw;
+    };
+};
 

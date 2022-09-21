@@ -4,10 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="scripts.js"></script>
+    <title>Play Game</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <script src="scripts.js" defer></script>
+
 </head>
 <body>
-    <h1>Please open the DevTools console by pressing ctrl+shift+I to for the game.</h1>
+    <h1>Rock Paper Scissor</h1>
+    <div id="hero">
+        <p>Machines have gained sentience and have declared to take over the world!</p>
+        <p>Surprisingly! They chose to do it through a game of rock-paper-scissor</p>
+        <p>You have been chosen as Humanity's representative to fight against the Machines.</p>
+        <p>First player to score 5 points wins the game.</p>
+        <p>Save Humanity! Do not let the Machines take over the world!</p>
+    </div>
+    <div id="body">
+        <div class="options">
+            <button id="rock">ROCK</button>
+            <button id="paper">PAPER</button>
+            <button id="scissor">SCISSOR</button>
+        </div>
+        <div id="results"></div>
+        <div id="scores">
+            <div class="player-score"></div>
+            <div class="computer-score"></div>
+        </div>
+        <div id="winner"></div>
+    </div>
+    <button id="again">Play again</button>
 </body>
 </html>
