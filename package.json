@@ -1,0 +1,15 @@
+{
+  "name": "rock-paper-scissor",
+  "version": "1.0.0",
+  "description": "This is an in-browser version of Rock paper scissor game built using JavaScript as part of the Odin Project foundations project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
