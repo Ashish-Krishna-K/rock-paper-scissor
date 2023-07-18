@@ -7,6 +7,18 @@ var buttons = [
     document.querySelector('section.controls button.paper'),
     document.querySelector('section.controls button.scissor')
 ];
+// Create variables to the two p tags that will display round result and 
+// final result respectively
+var roundResult = document.querySelector('section.round-result p');
+var finalResult = document.querySelector('section.final-result p');
+// Create a variable for the controls and reset sections
+var controlsSection = document.querySelector('section.controls');
+var resetSection = document.querySelector('section.reset');
+// Create a variable for the play again button
+var resetBtn = document.querySelector('section.reset button.reset');
+// Create variables to update Computer and player scores
+var playerScore = document.querySelector('span.player-score');
+var computerScore = document.querySelector('span.comp-score');
 // Create the scoreBoard object to return
 var scoreBoard = {
     rounds: 0,
@@ -95,14 +107,21 @@ var playGame = function (event) {
         case ('player'):
             scoreBoard.player += 1;
             console.log("You Win! Computer chose ".concat(roundWinner.computerChoice));
+            if (roundResult !== null)
+                roundResult.textContent = "You Win! Computer chose ".concat(roundWinner.computerChoice);
             break;
         case ('computer'):
             scoreBoard.computer += 1;
             console.log("You lose! Computer chose ".concat(roundWinner.computerChoice));
+            if (roundResult !== null)
+                roundResult.textContent = "You lose! Computer chose ".concat(roundWinner.computerChoice);
             break;
         case ('tie'):
             console.log("It's a tie! Computer chose ".concat(roundWinner.computerChoice));
+            if (roundResult !== null)
+                roundResult.textContent = "It's a tie! Computer chose ".concat(roundWinner.computerChoice);
     }
+    updateScores();
     checkWinner();
 };
 // Create a function which will check the number of rounds played to determine if game is over 
@@ -112,16 +131,35 @@ var checkWinner = function () {
     if (scoreBoard.rounds < 5) {
         return;
     }
+    resetSection === null || resetSection === void 0 ? void 0 : resetSection.classList.toggle('hidden');
+    controlsSection === null || controlsSection === void 0 ? void 0 : controlsSection.classList.toggle('hidden');
     // rounds played is 5 or more so we will remove the event listener to prevent addional plays
     buttons.forEach(function (btn) { return btn === null || btn === void 0 ? void 0 : btn.removeEventListener('click', playGame); });
     if (scoreBoard.player > scoreBoard.computer) {
         console.log("You win! Your score is ".concat(scoreBoard.player));
+        if (finalResult !== null)
+            finalResult.textContent = "You win! Your score is ".concat(scoreBoard.player);
         return;
     }
     if (scoreBoard.computer > scoreBoard.player) {
         console.log("You Lose! Computer scored ".concat(scoreBoard.computer));
+        if (finalResult !== null)
+            finalResult.textContent = "You Lose! Computer scored ".concat(scoreBoard.computer);
         return;
     }
-    console.log("It's a tie!");
+    if (scoreBoard.player === scoreBoard.computer) {
+        console.log("It's a tie! You scored ".concat(scoreBoard.player, " and the computer scored ").concat(scoreBoard.computer));
+        if (finalResult !== null)
+            finalResult.textContent = "It's a tie! You scored ".concat(scoreBoard.player, " and the computer scored ").concat(scoreBoard.computer);
+        return;
+    }
 };
+var updateScores = function () {
+    if (playerScore !== null)
+        playerScore.textContent = scoreBoard.player.toString();
+    if (computerScore !== null)
+        computerScore.textContent = scoreBoard.computer.toString();
+};
+updateScores();
 buttons.forEach(function (btn) { return btn === null || btn === void 0 ? void 0 : btn.addEventListener('click', playGame); });
+resetBtn === null || resetBtn === void 0 ? void 0 : resetBtn.addEventListener('click', function () { return window.location.reload(); });

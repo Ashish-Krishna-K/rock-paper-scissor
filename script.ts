@@ -9,6 +9,22 @@ const buttons = [
     document.querySelector('section.controls button.scissor')
 ];
 
+// Create variables to the two p tags that will display round result and 
+// final result respectively
+const roundResult = document.querySelector('section.round-result p');
+const finalResult = document.querySelector('section.final-result p');
+
+// Create a variable for the controls and reset sections
+const controlsSection = document.querySelector('section.controls');
+const resetSection = document.querySelector('section.reset');
+
+// Create a variable for the play again button
+const resetBtn = document.querySelector('section.reset button.reset');
+
+// Create variables to update Computer and player scores
+const playerScore = document.querySelector('span.player-score');
+const computerScore = document.querySelector('span.comp-score');
+
 // Create the scoreBoard object to return
 const scoreBoard = {
     rounds: 0,
@@ -104,15 +120,19 @@ const playGame = (event: Event) => {
         case ('player'):
             scoreBoard.player += 1;
             console.log(`You Win! Computer chose ${roundWinner.computerChoice}`);
+            if (roundResult !== null) roundResult.textContent = `You Win! Computer chose ${roundWinner.computerChoice}`
             break;
         case ('computer'):
             scoreBoard.computer += 1;
             console.log(`You lose! Computer chose ${roundWinner.computerChoice}`);
+            if (roundResult !== null) roundResult.textContent = `You lose! Computer chose ${roundWinner.computerChoice}`
             break;
         case ('tie'):
             console.log(`It's a tie! Computer chose ${roundWinner.computerChoice}`);
+            if (roundResult !== null) roundResult.textContent = `It's a tie! Computer chose ${roundWinner.computerChoice}`
     }
 
+    updateScores();
     checkWinner();
 }
 
@@ -123,17 +143,32 @@ const checkWinner = () => {
     if (scoreBoard.rounds < 5) {
         return;
     }
+    resetSection?.classList.toggle('hidden');
+    controlsSection?.classList.toggle('hidden');
     // rounds played is 5 or more so we will remove the event listener to prevent addional plays
     buttons.forEach(btn => btn?.removeEventListener('click', playGame));
     if (scoreBoard.player > scoreBoard.computer) {
-        console.log(`You win! Your score is ${scoreBoard.player}`)
+        console.log(`You win! Your score is ${scoreBoard.player}`);
+        if (finalResult !== null) finalResult.textContent = `You win! Your score is ${scoreBoard.player}`
         return;
     } 
     if (scoreBoard.computer > scoreBoard.player) {
         console.log(`You Lose! Computer scored ${scoreBoard.computer}`)
+        if (finalResult !== null) finalResult.textContent = `You Lose! Computer scored ${scoreBoard.computer}`
         return;
     }
-    console.log(`It's a tie!`)
+    if (scoreBoard.player === scoreBoard.computer) {
+        console.log(`It's a tie! You scored ${scoreBoard.player} and the computer scored ${scoreBoard.computer}`)
+        if (finalResult !== null) finalResult.textContent = `It's a tie! You scored ${scoreBoard.player} and the computer scored ${scoreBoard.computer}`;
+        return;
+    }
 }
 
+const updateScores = () => {
+    if (playerScore !== null) playerScore.textContent = scoreBoard.player.toString();
+    if (computerScore !== null) computerScore.textContent = scoreBoard.computer.toString();
+}
+
+updateScores();
 buttons.forEach(btn => btn?.addEventListener('click', playGame));
+resetBtn?.addEventListener('click', () => window.location.reload());

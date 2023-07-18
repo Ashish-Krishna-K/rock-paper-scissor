@@ -5,21 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <title>Rock Paper Scissor</title>
 </head>
 
 <body>
-    <section class="controls">
-        <button type="button" class="rock" value="rock">
-            Rock
-        </button>
-        <button type="button" class="paper" value="paper">
-            Paper
-        </button>
-        <button type="button" class="scissor" value="scissor">
-            Scissor
-        </button>
-    </section>
+    <header>
+        <h1>Rock, Paper, Scissors</h1>
+    </header>
+    <main>
+        <section class="round-result">
+            <p></p>
+        </section>
+        <section class="scores">
+            <p>Computer Score: <span class="comp-score"></span></p>
+            <p>Your Score: <span class="player-score"></span></p>
+        </section>
+        <section class="final-result">
+            <p></p>
+        </section>
+        <section class="controls">
+            <button type="button" class="rock" value="rock">
+                Rock
+            </button>
+            <button type="button" class="paper" value="paper">
+                Paper
+            </button>
+            <button type="button" class="scissor" value="scissor">
+                Scissor
+            </button>
+        </section>
+        <section class="reset hidden">
+            <button type="button" class="reset">
+                Play Again?
+            </button>
+        </section>
+    </main>
+    <footer>
+        <p>A project by Ashish-Krishna-K</p>
+    </footer>
 </body>
 
 </html>
