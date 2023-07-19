@@ -1,10 +1,13 @@
 # rock-paper-scissor
+
 This is an in-browser version of Rock paper scissor game built using JavaScript as part of the Odin Project foundations project.
 
-The scope of this project is limited only playing rock-paper-scissor in the DevTools console. As such the body of the webpage will remain blank.
+The scope of this project is limited to only playing rock-paper-scissor in the DevTools console. As such the body of the webpage will remain blank.
 This will be updated to have an actual User Interface in the future when we revisit the project further down the module.
 
 This project was already built in my first run through The Odin Project, however I am revisiting every project with more advanced knowledge of HTML,CSS,JS concepts. This time around I chose to use typescript instead of regular JavaScript to practice using TypeScript more. I decided to only satisfy the project requirements in the second revisit even if I am capable of more.
+
+***An UI has been added the old browser-console version is now deprecated. The legacy code is given below in the README.***
 
 We start of the script file by first declaring an array of choices available in the rock-paper-scissors game. 
 
@@ -127,7 +130,7 @@ const playGame = () => {
             playerSelection = getPlayerChoice() ?? '';
         };
 
-        // Determine the winner of the round using the playRound function an(d store
+        // Determine the winner of the round using the playRound function and store
         // it in a variable
         const roundWinner = playRound(playerSelection, computerSelection);
 
@@ -160,3 +163,26 @@ console.log(
             `It's a tie with the player scoring ${finalScores.player} and the computer scoring ${finalScores.computer}`
 ) 
 ````
+
+***Post Adding the UI***
+We start off by declaring an array that holds the rock, paper, scissors choices. We will use an array since we can easily index map to the appropriate choice
+
+We are now creating a buttons array which will hold the rock, paper, scissors buttons. We are using an array because we need to add the same event handler to all the the buttons.
+
+Next we create variables for multiple DOM elements in order to manipulate it as needed.
+
+We create a scoreBoard object that holds the number of rounds played and the player-computer scores.
+
+We are reusing the getRandomNumber, getComputerChoice, playRound functions from the previous console version as there is no changes in these logic.
+
+The biggest change comes in the playGame function, first of all we have an event parameter this will help us get the button clicked by the user. Inside the playGame function we get the computerSelection using the previous getComputerCHoice function then we get the player's choice by getting the value of the button clicked by the user.
+Then we pass both playerSelection and computerSelection to the playRound function to determine the winner.
+After that, we increment the rounds played by 1 and update the scoreBoard while simultaneously displaying the round winner to the user(using DOM elements)
+
+Then we utilize the new updateScores function to display the current score in the UI. The updateScores function simply takes the value from the scoreBoard object and updates the textContent in the UI
+
+The final checkWinner function first checks if the appropriate number of rounds is completed, if not it will simply return. If 5 rounds is completed it starts off by hiding the rock, paper, scissors options and displaying a new play again option, post that it will remove the event listener on the rock, paper, scissors buttons and finally it displays the game winner in the UI.
+
+At the end, the updateScores function is run to display the starting scores(0 in this case) in the appropriate dom element and then adds the correct event listener to the correct buttons.
+
+Admitedly I had to break a few SOLID principles rules while creating the UI elements, I hope as I gain more skills/knowledge I will be able to improve my coding abilities to achieve this project's goals without breaking the SOLID principles.
