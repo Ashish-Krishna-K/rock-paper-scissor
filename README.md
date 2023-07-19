@@ -1,5 +1,7 @@
 # rock-paper-scissor
 
+Check out the live version of this site by clicking [here](https://ashish-krishna-k.github.io/rock-paper-scissor/)
+
 This is an in-browser version of Rock paper scissor game built using JavaScript as part of the Odin Project foundations project.
 
 The scope of this project is limited to only playing rock-paper-scissor in the DevTools console. As such the body of the webpage will remain blank.
