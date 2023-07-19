@@ -1,6 +1,6 @@
 // Create an array of choices, we will use this array to make 
 // random choices with the random number generator function.
-var choices = ['rock', 'paper', 'scissor'];
+var choices = ['rock', 'paper', 'scissors'];
 // Create an array for rock, paper and scissor buttons
 var buttons = [
     document.querySelector('section.controls button.rock'),
@@ -9,8 +9,7 @@ var buttons = [
 ];
 // Create variables to the two p tags that will display round result and 
 // final result respectively
-var roundResult = document.querySelector('section.round-result p');
-var finalResult = document.querySelector('section.final-result p');
+var resultDisplay = document.querySelector('section.result h2');
 // Create a variable for the controls and reset sections
 var controlsSection = document.querySelector('section.controls');
 var resetSection = document.querySelector('section.reset');
@@ -98,7 +97,8 @@ var playGame = function (event) {
     // Store the computer choice in a variable
     var computerSelection = getComputerChoice();
     // Get the playerSelection from the pressed button's value
-    var playerSelection = event.target.value;
+    var targetElem = event.target;
+    var playerSelection = (targetElem === null || targetElem === void 0 ? void 0 : targetElem.parentElement).value;
     // pass playerSelection and computerSelection to the playround function to get the round winner
     var roundWinner = playRound(playerSelection, computerSelection);
     // we add 1 to the rounds of scoreboard to keep track of the number of rounds played
@@ -106,20 +106,17 @@ var playGame = function (event) {
     switch (roundWinner === null || roundWinner === void 0 ? void 0 : roundWinner.winner) {
         case ('player'):
             scoreBoard.player += 1;
-            console.log("You Win! Computer chose ".concat(roundWinner.computerChoice));
-            if (roundResult !== null)
-                roundResult.textContent = "You Win! Computer chose ".concat(roundWinner.computerChoice);
+            if (resultDisplay !== null)
+                resultDisplay.textContent = "You Win! Computer chose ".concat(roundWinner.computerChoice);
             break;
         case ('computer'):
             scoreBoard.computer += 1;
-            console.log("You lose! Computer chose ".concat(roundWinner.computerChoice));
-            if (roundResult !== null)
-                roundResult.textContent = "You lose! Computer chose ".concat(roundWinner.computerChoice);
+            if (resultDisplay !== null)
+                resultDisplay.textContent = "You lose! Computer chose ".concat(roundWinner.computerChoice);
             break;
         case ('tie'):
-            console.log("It's a tie! Computer chose ".concat(roundWinner.computerChoice));
-            if (roundResult !== null)
-                roundResult.textContent = "It's a tie! Computer chose ".concat(roundWinner.computerChoice);
+            if (resultDisplay !== null)
+                resultDisplay.textContent = "It's a tie! Computer chose ".concat(roundWinner.computerChoice);
     }
     updateScores();
     checkWinner();
@@ -136,21 +133,18 @@ var checkWinner = function () {
     // rounds played is 5 or more so we will remove the event listener to prevent addional plays
     buttons.forEach(function (btn) { return btn === null || btn === void 0 ? void 0 : btn.removeEventListener('click', playGame); });
     if (scoreBoard.player > scoreBoard.computer) {
-        console.log("You win! Your score is ".concat(scoreBoard.player));
-        if (finalResult !== null)
-            finalResult.textContent = "You win! Your score is ".concat(scoreBoard.player);
+        if (resultDisplay !== null)
+            resultDisplay.textContent = "You win the game!";
         return;
     }
     if (scoreBoard.computer > scoreBoard.player) {
-        console.log("You Lose! Computer scored ".concat(scoreBoard.computer));
-        if (finalResult !== null)
-            finalResult.textContent = "You Lose! Computer scored ".concat(scoreBoard.computer);
+        if (resultDisplay !== null)
+            resultDisplay.textContent = "You Lose the game!";
         return;
     }
     if (scoreBoard.player === scoreBoard.computer) {
-        console.log("It's a tie! You scored ".concat(scoreBoard.player, " and the computer scored ").concat(scoreBoard.computer));
-        if (finalResult !== null)
-            finalResult.textContent = "It's a tie! You scored ".concat(scoreBoard.player, " and the computer scored ").concat(scoreBoard.computer);
+        if (resultDisplay !== null)
+            resultDisplay.textContent = "It's a tie!";
         return;
     }
 };

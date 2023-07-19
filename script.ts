@@ -1,6 +1,6 @@
 // Create an array of choices, we will use this array to make 
 // random choices with the random number generator function.
-const choices = ['rock', 'paper', 'scissor'];
+const choices = ['rock', 'paper', 'scissors'];
 
 // Create an array for rock, paper and scissor buttons
 const buttons = [
@@ -11,8 +11,7 @@ const buttons = [
 
 // Create variables to the two p tags that will display round result and 
 // final result respectively
-const roundResult = document.querySelector('section.round-result p');
-const finalResult = document.querySelector('section.final-result p');
+const resultDisplay = document.querySelector('section.result h2');
 
 // Create a variable for the controls and reset sections
 const controlsSection = document.querySelector('section.controls');
@@ -109,7 +108,8 @@ const playGame = (event: Event) => {
     const computerSelection = getComputerChoice();
 
     // Get the playerSelection from the pressed button's value
-    const playerSelection = (event.target as HTMLInputElement).value;
+    const targetElem = event.target as HTMLInputElement;
+    const playerSelection = (targetElem?.parentElement as HTMLInputElement).value;
 
     // pass playerSelection and computerSelection to the playround function to get the round winner
     const roundWinner = playRound(playerSelection, computerSelection);
@@ -119,21 +119,24 @@ const playGame = (event: Event) => {
     switch (roundWinner?.winner) {
         case ('player'):
             scoreBoard.player += 1;
-            console.log(`You Win! Computer chose ${roundWinner.computerChoice}`);
-            if (roundResult !== null) roundResult.textContent = `You Win! Computer chose ${roundWinner.computerChoice}`
+            if (resultDisplay !== null) resultDisplay.textContent = `You Win! Computer chose ${roundWinner.computerChoice}`
             break;
         case ('computer'):
             scoreBoard.computer += 1;
-            console.log(`You lose! Computer chose ${roundWinner.computerChoice}`);
-            if (roundResult !== null) roundResult.textContent = `You lose! Computer chose ${roundWinner.computerChoice}`
+            if (resultDisplay !== null) resultDisplay.textContent = `You lose! Computer chose ${roundWinner.computerChoice}`
             break;
         case ('tie'):
-            console.log(`It's a tie! Computer chose ${roundWinner.computerChoice}`);
-            if (roundResult !== null) roundResult.textContent = `It's a tie! Computer chose ${roundWinner.computerChoice}`
+            if (resultDisplay !== null) resultDisplay.textContent = `It's a tie! Computer chose ${roundWinner.computerChoice}`
     }
 
     updateScores();
     checkWinner();
+}
+
+// Create a function that updates the round winner in the UI
+const updateScores = () => {
+    if (playerScore !== null) playerScore.textContent = scoreBoard.player.toString();
+    if (computerScore !== null) computerScore.textContent = scoreBoard.computer.toString();
 }
 
 // Create a function which will check the number of rounds played to determine if game is over 
@@ -143,30 +146,24 @@ const checkWinner = () => {
     if (scoreBoard.rounds < 5) {
         return;
     }
+
     resetSection?.classList.toggle('hidden');
     controlsSection?.classList.toggle('hidden');
+
     // rounds played is 5 or more so we will remove the event listener to prevent addional plays
     buttons.forEach(btn => btn?.removeEventListener('click', playGame));
     if (scoreBoard.player > scoreBoard.computer) {
-        console.log(`You win! Your score is ${scoreBoard.player}`);
-        if (finalResult !== null) finalResult.textContent = `You win! Your score is ${scoreBoard.player}`
+        if (resultDisplay !== null) resultDisplay.textContent = `You win the game!`
         return;
-    } 
+    }
     if (scoreBoard.computer > scoreBoard.player) {
-        console.log(`You Lose! Computer scored ${scoreBoard.computer}`)
-        if (finalResult !== null) finalResult.textContent = `You Lose! Computer scored ${scoreBoard.computer}`
+        if (resultDisplay !== null) resultDisplay.textContent = `You Lose the game!`
         return;
     }
     if (scoreBoard.player === scoreBoard.computer) {
-        console.log(`It's a tie! You scored ${scoreBoard.player} and the computer scored ${scoreBoard.computer}`)
-        if (finalResult !== null) finalResult.textContent = `It's a tie! You scored ${scoreBoard.player} and the computer scored ${scoreBoard.computer}`;
+        if (resultDisplay !== null) resultDisplay.textContent = `It's a tie!`;
         return;
     }
-}
-
-const updateScores = () => {
-    if (playerScore !== null) playerScore.textContent = scoreBoard.player.toString();
-    if (computerScore !== null) computerScore.textContent = scoreBoard.computer.toString();
 }
 
 updateScores();
