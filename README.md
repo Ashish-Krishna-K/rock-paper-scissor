@@ -164,7 +164,8 @@ console.log(
 ) 
 ````
 
-***Post Adding the UI***
+## ***Post Adding the UI***
+
 We start off by declaring an array that holds the rock, paper, scissors choices. We will use an array since we can easily index map to the appropriate choice
 
 We are now creating a buttons array which will hold the rock, paper, scissors buttons. We are using an array because we need to add the same event handler to all the the buttons.
